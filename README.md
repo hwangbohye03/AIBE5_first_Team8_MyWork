@@ -1,24 +1,38 @@
-## 5. 설계
-### 5.1 Runner
-<div align="center">
-  <img src="./github_src/runner.png">
-</div>
+## 테스트
 
-### 5.2 Domain
+### 1. 회원가입 (중복 아이디)
+- **테스트 내용**: 이미 존재하는 ID `user`로 회원가입 시도  
+- **기대 결과**: "이미 존재하는 아이디" 메시지 출력  
+- **시연**:  
+  ![회원가입 중복 ID 테스트](./gifs/signup_duplicate.gif)
 
-<div align="center">
-  <img src="./github_src/domain.png">
-</div>
 
-### 5.3 Service
 
-<div align="center">
-  <img src="./github_src/service.png">
-</div>
+### 2. 로그인 (존재하지 않는 아이디)
+- **테스트 내용**: 존재하지 않는 ID `user2`로 로그인 시도  
+- **기대 결과**: "존재하지 않는 아이디" 메시지 출력  
+- **시연**:  
+  ![로그인 실패 테스트](./gifs/login_notfound.gif)
 
-### 5.4 Repository
 
-<div align="center">
-  <img src="./github_src/repository.png">
-</div>
-<br>
+
+### 3. 게시글 작성 (로그아웃 상태)
+- **테스트 내용**: 로그아웃 상태에서 게시글 작성 시도  
+- **기대 결과**: "로그아웃 상태에서는 이용 불가" 메시지 출력  
+- **시연**:  
+  ![로그아웃 작성 테스트](./gifs/write_logout.gif)
+
+
+### 4️. 게시글 수정 (로그아웃 상태)
+- **테스트 내용**: 로그아웃 상태에서 게시글 수정 시도  
+- **기대 결과**: "로그아웃 상태에서는 이용 불가" 메시지 출력  
+- **시연**:  
+  ![로그아웃 수정 테스트](./gifs/edit_logout.gif)
+
+
+
+### 5️. 게시글 삭제 (로그아웃 상태)
+- **테스트 내용**: 로그아웃 상태에서 게시글 삭제 시도  
+- **기대 결과**: "로그아웃 상태에서는 이용 불가" 메시지 출력  
+- **시연**:  
+  ![로그아웃 삭제 테스트](./gifs/delete_logout.gif)
