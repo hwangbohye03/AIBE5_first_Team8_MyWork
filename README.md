@@ -53,6 +53,9 @@
 ## 5. 데이터 구조
 #### 🔷 ERD 다이어그램
 
+<img height="400" alt="데이터 구조도" src="https://github.com/user-attachments/assets/61cd212e-bdab-4617-80d0-047b6ad7a038" />
+
+
 #### 🔑 Primary Key (PK)
 > 각 테이블의 데이터 고유 식별을 위해 **기본키** 를 `id` 컬럼으로 설정합니다.
   
