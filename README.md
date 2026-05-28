@@ -1,74 +1,111 @@
-## 4. 전체 구현 기능
+# 🚦 BootSignal (부트시그널) - Frontend
 
-#### ⚙️ Command Parser
-| 기능 | 설명 |
-|---|---|
-| 명령어 파싱 | 사용자 입력 명령어를 명령어와 인자값으로 분리 |
+> KDT 예비 수강생을 위한 후기 데이터 기반 의사결정 플랫폼
 
+---
 
-#### ⚙️ 만화책 관리
-| 기능 | 설명 |
-|---|---|
-| 만화책 등록 | 제목, 권수, 작가 입력 후, 새 만화책 DB에 저장(등록일은 시스템 날짜로 자동 저장) |
-| 만화책 목록 조회 |  DB에 저장된 모든 만화책을 ID 기준 오름차순으로 출력 |
-| 만화책 상세 조회 | 명령 인자로 넘어온 만화책 ID 존재 여부 확인 후, 해당 만화책 상세 정보 출력 |
-| 만화책 수정 | 명령 인자로 넘어온 만화책 ID 존재 여부 확인 후, 해당 만화책 수정 후 DB 업데이트 |
-| 만화책 삭제 | 명령 인자로 넘어온 만화책 ID 존재 여부 확인 후, 해당 데이터 DB에서 삭제 |
+## 🛠️ Tech Stack
 
+* **Build Tool:** Vite v8.0
+* **Library:** React v19.2
+* **Language:** TypeScript v6.0
+* **Styling:** Tailwind CSS v4.3 (`@tailwindcss/postcss`)
+* **UI/Animation:** React Bits (인터랙티브 애니메이션 컴포넌트)
+* **Environment:** Node.js v24+ / npm
 
-#### ⚙️ 회원 관리
-| 기능 | 설명 |
-|---|---|
-| 회원 등록 | 등록할 회원의 이름과 전화번호 입력 후, 새 회원 데이터 DB에 저장 |
-| 회원 목록 조회 | DB에 저장된 모든 회원 정보 출력 |
+---
 
+## 📂 Project Structure
 
-#### ⚙️ 대여 관리
-| 기능 | 설명 |
-|---|---|
-| 만화책 대여 | 만화책 재고 확인 후 재고가 있으면 Comic 데이터 수량 1 감소시키고 DB 업데이트, <br> 명령 인자로 넘어온 `comicId`, `memberId`를 외래키로 사용하는 Rental 데이터 DB에 생성 |
-| 만화책 반납 | 명령 인자로 넘어온 `rentalId` 존재 여부 확인 후 연결된 Comic 데이터 수량을 1 증가, <br> Rental 데이터를 반납 상태로 변경하고 DB 업데이트 |
-| 대여 목록 조회 | DB에 저장된 전체 대여 기록 조회 및 출력 |
+```text
+AIBE5_FinalProject_Team1_FE/
+├── .gitignore
+├── eslint.config.js
+├── index.html
+├── package-lock.json
+├── package.json                    # 패키지 관리
+├── postcss.config.js               # Tailwind와 CSS 연결 플러그인 설정
+├── tailwind.config.js              # Tailwind CSS v4 스타일 적용 범위 설정
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+├── vite.config.ts
+├── README.md
+├── node_modules/
+│
+├── public/                         # [정적] 로고, favicon 등
+│
+└── src/                            # [소스코드]
+    ├── main.tsx                    # 앱 진입점
+    ├── App.tsx                     # 페이지 이동(라우팅) 및 전체 화면 관리
+    ├── index.css                   # Tailwind v4 전역 스타일시트
+    │
+    ├── assets/                     # [미디어] 코드 내에서 임포트할 이미지/아이콘
+    │   └── icons/                  # 서비스 로고, 인증 뱃지 등 UI용 아이콘
+    │
+    ├── components/                 # [공통 UI] 2개 이상 페이지에서 공유하는 부품
+    │   ├── common/                 # 버튼, 인풋, 모달, 통계 차트, React Bits 공통 효과 등 최소 단위
+    │   └── layout/                 # 헤더, 푸터, 네비게이션바 등 고정 레이아웃
+    │
+    ├── pages/                      # [화면]
+    │   ├── home/                   # 1. 메인 홈
+    │   │   ├── components/         # 전용 UI 요소 (홈 전용 React Bits 포함)
+    │   │   └── Page.tsx            # 화면
+    │   │
+    │   ├── courses/                # 2. 과정 조회
+    │   │   ├── components/         # 전용 UI 요소 (과정 카드, 통계 그래프 등)
+    │   │   └── Page.tsx            # 화면
+    │   │
+    │   ├── community/              # 3. 커뮤니티
+    │   │   ├── components/         # 전용 UI 요소 (탭 전환기, 구인 카드 등)
+    │   │   └── Page.tsx            # 화면
+    │   │
+    │   └── mypage/                 # 4. 마이페이지
+    │       ├── components/         # 전용 UI 요소 (업로드존, 내 활동 탭 등)
+    │       └── Page.tsx            # 화면
+    │
+    ├── hooks/                      # [커스텀 훅] 비즈니스 로직 분리
+    ├── services/                   # [API 통신] 백엔드 및 AI 연동 함수
+    ├── types/                      # [타입 정의]
+    └── utils/                      # [공통 함수] 통계, 날짜 포맷터 등 가공 함수
+```
 
+---
 
-#### ⚙️ Date Util
-| 기능 | 설명 |
-|---|---|
-| 날짜 변환 | `String` ↔ `Date` 형식 변환 |
-| 현재 날짜 조회 | 시스템 현재 날짜 반환 |
-| 연체 여부 확인 | 반납 예정일 기준 연체 여부 판단 |
+## 🚀 실행 가이드
 
+### 최초 프로젝트 환경 구축
 
-#### ⚙️ DB Util
-| 기능 | 설명 |
-|---|---|
-| DB 연결 | `.env` 환경변수(`URL`, `USER`, `PASSWORD`) 기반 DB 연결 생성 |
-| 트랜잭션 시작 | `setAutoCommit(false)`로 트랜잭션 시작 |
-| Commit | 트랜잭션 성공 시 변경 사항 확정 |
-| Rollback | 오류 발생 시 트랜잭션 작업 취소 |
-| 자원 해제 | JDBC 자원(Connection, Statement, ResultSet) close |
+레포지토리를 처음 Clone 하거나 최신 코드를 Pull 받은 뒤 패키지를 설치하는 단계입니다.
 
+실행 명령어:
 
+```bash
+npm install
+```
 
-## 5. 데이터 구조
-#### 🔷 ERD 다이어그램
+<br>
 
-<img height="400" alt="데이터 구조도" src="https://github.com/user-attachments/assets/61cd212e-bdab-4617-80d0-047b6ad7a038" />
+### 로컬 개발 서버 구동
 
+HMR이 적용된 로컬 개발 서버를 실행합니다.
 
-#### 🔑 Primary Key (PK)
-> 각 테이블의 데이터 고유 식별을 위해 **기본키** 를 `id` 컬럼으로 설정합니다.
-  
-| Table  | Primary Key |
-|--------|-------------|
-| comic  | id |
-| member | id |
-| rental | id |
+기본 실행 주소: `http://localhost:5173`
 
-#### 🔗 Foreign Key (FK)
-> Rental 테이블은 대여 관계를 표현하기 위해 **외래키** 를 사용합니다.
+실행 명령어:
 
-| Column   | Reference |
-|----------|-----------|
-| comic_id | comic.id  |
-| member_id| member.id |
+```bash
+npm run dev
+```
+
+<br>
+
+### 배포용 최적화 파일 빌드
+
+상용 서버 업로드용 최적화 배포 폴더(`dist/`)를 생성합니다.
+
+실행 명령어:
+
+```bash
+npm run build
+```
